@@ -41,7 +41,7 @@ function Intake() {
         </div>
 
         <p>Project/Request Overview:</p>
-        <textarea id="project-overview" style={{ width: "100%" }}></textarea>
+        <textarea id="project-overview" style={{ width: "50%" }}></textarea>
         <div>
           <br></br>
         </div>
@@ -267,7 +267,8 @@ function Intake() {
         <br></br>
 
         <h4>Describe Previous Work/Add Comments</h4>
-        <textarea id="comments" style={{ width: "100%" }}></textarea>
+        <textarea id="comments" style={{ width: "50%" }}></textarea>
+        <br></br>
         <br></br>
 
         <input type="submit" value="submit"></input>
