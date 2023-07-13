@@ -1,10 +1,15 @@
-import './App.css';
-
+import{
+  Routes,
+  Route
+}from 'react-router-dom'
+import Home from './Templates/Home'
+import Intake from './Templates/Intake'
 function App() {
   return (
-    <div className="App">
-    
-    </div>
+    <Routes>
+      <Route path ="/" element={<Home />} />
+      <Route path ="/intake" element={<Intake />} />
+    </Routes>
   );
 }
 
