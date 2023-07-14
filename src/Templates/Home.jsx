@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import List from "../Components/List";
 
 function Home() {
   return (
@@ -8,7 +9,9 @@ function Home() {
       <Link to="/intake">Intake</Link>
       <br></br>
       <Link to="/order">Order</Link>
+      <List />
     </div>
   );
+
 }
 export default Home;
