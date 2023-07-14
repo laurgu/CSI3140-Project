@@ -155,108 +155,108 @@ function Order() {
             <input
               id="desc-product1"
               type="text"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="desc-product2"
               type="text"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="desc-product3"
               type="text"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="desc-product4"
               type="text"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="desc-product5"
               type="text"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
           </div>
           <div className="col-2">
             <input
               id="qty-product1"
               type="number"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="qty-product2"
               type="number"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="qty-product3"
               type="number"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="qty-product4"
               type="number"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="qty-product5"
               type="number"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
           </div>
           <div className="col-2">
             <input
               id="unit-product1"
               type="number"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="unit-product2"
               type="number"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="unit-product3"
               type="number"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="unit-product4"
               type="number"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="unit-product5"
               type="number"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
           </div>
           <div className="col-2">
             <input
               id="cost-product1"
               type="number"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="cost-product2"
               type="number"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="cost-product3"
               type="number"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="cost-product4"
               type="number"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="cost-product5"
               type="number"
-              style={{ width: "100%", height: "3vw" }}
+              style={{ width: "100%" }}
             ></input>
           </div>
         </div>
