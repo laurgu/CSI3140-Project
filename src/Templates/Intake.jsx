@@ -4,7 +4,7 @@ import "../Styles/General.css";
 
 function Intake() {
   return (
-    <div className="intake-form">
+    <div className="form">
       <h1>CLIENT INTAKE FORM</h1>
       <br />
       <form>

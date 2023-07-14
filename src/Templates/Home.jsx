@@ -1,12 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-function Home(){
-    return(
-        <div>
-            <h1>HOME</h1>
-            <Link to='/intake'>Intake</Link>
-        </div>
-    );
+function Home() {
+  return (
+    <div>
+      <h1>HOME</h1>
+      <Link to="/intake">Intake</Link>
+      <br></br>
+      <Link to="/order">Order</Link>
+    </div>
+  );
 }
 export default Home;
