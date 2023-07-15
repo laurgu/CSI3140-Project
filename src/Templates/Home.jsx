@@ -1,6 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import List from "../Components/List";
 
 function Home() {
   const navigate = useNavigate();
@@ -41,6 +43,10 @@ function Home() {
           <h4>Past Forms</h4>
         </div>
       </div>
+      <Link to="/intake">Intake</Link>
+      <br></br>
+      <Link to="/order">Order</Link>
+      <List />
     </div>
   );
 }
