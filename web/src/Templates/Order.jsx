@@ -1,10 +1,30 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "../Styles/General.css";
 
 function Order() {
+  const navigate = useNavigate();
+
+  const handleHomeButton = (event) => {
+    event.preventDefault();
+    navigate("/");
+  };
   return (
     <div className="form">
+      <div style={{ position: "relative" }}>
+        <button
+          onClick={handleHomeButton}
+          style={{
+            position: "absolute",
+            top: "0",
+            right: "0",
+            fontSize: "2vw",
+          }}
+        >
+          Home
+        </button>
+      </div>
       <h1>ORDER FORM</h1>
       <br></br>
       <form>

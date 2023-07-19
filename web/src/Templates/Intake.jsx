@@ -1,10 +1,30 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "../Styles/General.css";
+import { useNavigate } from "react-router-dom";
 
 function Intake() {
+  const navigate = useNavigate();
+
+  const handleHomeButton = (event) => {
+    event.preventDefault();
+    navigate("/");
+  };
   return (
     <div className="form">
+      <div style={{ position: "relative" }}>
+        <button
+          onClick={handleHomeButton}
+          style={{
+            position: "absolute",
+            top: "0",
+            right: "0",
+            fontSize: "2vw",
+          }}
+        >
+          Home
+        </button>
+      </div>
       <h1>CLIENT INTAKE FORM</h1>
       <br />
       <form>
@@ -42,9 +62,11 @@ function Intake() {
 
         <p>Project/Request Overview:</p>
         <textarea id="project-overview" style={{ width: "50%" }}></textarea>
-        <div>
-          <br></br>
-        </div>
+        <div></div>
+
+        <br></br>
+        <hr></hr>
+        <br></br>
 
         <h2>CLIENT ONBOARD INFOMRATION</h2>
         <div>
@@ -52,7 +74,7 @@ function Intake() {
         </div>
         <div className="row">
           <div className="col-6"></div>
-          <div className="col-6">
+          <div className="col-5">
             <br></br>
             <h4>Home Address</h4>
             <br></br>
