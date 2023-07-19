@@ -1,25 +1,27 @@
-import {useState} from "react";
+import List from "../List";
+import SearchBar from "./search";
+import {useEffect, useState} from "react";
+import fetchData from "../../api/documents";
 
-// const uri = "mongodb+srv://csi3140:<password>@csi3140.tdiheil.mongodb.net/?retryWrites=true&w=majority";
 
-// const client = new MongoClient(uri);
+const searchStyle = {
+    margin: '4vh auto'
+}
 
-function Search({onQuery}) {
+function Search() {
+    const [query, setQuery] = useState({})
+    const [list, setList] = useState([]);
 
-    function handleInput(e) {
-        console.log(e.target.value);
-        onQuery({
-            title: e.target.value
-        });
-    }
+    useEffect(() => {
+        fetchData(query).then(result => setList(result))
+    }, [query])
+
 
     return (
-        <div>
-            <h1>Search</h1>
-            <div>
-                <label htmlFor="name">Title</label>
-                <input type="text" onInput={handleInput}/>
-            </div>
+        <div style={searchStyle}>
+            <h3>Search</h3>
+            <SearchBar onQuery={setQuery}/>
+            <List list={list}/>
         </div>
     )
 }

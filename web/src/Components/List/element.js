@@ -1,9 +1,21 @@
 
 
+const elementStyle = {
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    padding: '10px',
+    margin: '10px',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+}
+
 function element (props) {
     return (
-        <div>
-            <h3>{props.name}</h3>
+        <div style={elementStyle}>
+            <p><b>{props.name}</b></p>
+            <p><b>ID:</b> {props.id}</p>
             <p>{props.description}</p>
             <p>{props.client}</p>
             <p>{props.date}</p>

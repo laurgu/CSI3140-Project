@@ -1,14 +1,14 @@
-import Container from "./container";
-import Search from "../Search";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import fetchData from "../../api/documents";
+import Element from "./element";
 
-function List() {
-    const [query, setQuery] = useState({})
+function List({list}) {
 
     return (
         <div>
-            <Search onQuery={setQuery}/>
-            <Container query={query}/>
+            {list.map((item) => (
+                <Element name={item.title} id={item._id} description={item.description} client={item.client} date={item.date} />
+            ))}
         </div>
     )
 }

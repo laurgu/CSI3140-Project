@@ -8,7 +8,7 @@ router.get('/documents', async (req, res, next) => {
         const title = req.query.title || '';
         const documents = await Document.find({title: {$regex: '' + title, $options: 'i'}})
 
-        console.log("New Request");
+        console.log("\n\nNew Request");
         console.log(req.originalUrl);
         console.log(req.query);
         console.log(documents);

@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import List from "../Components/List";
+import Search from "../Components/Search";
 
 function Home() {
   const navigate = useNavigate();
@@ -38,15 +38,21 @@ function Home() {
               style={{ marginLeft: "1vw" }}
             ></input>
           </form>
+          <Link to="/intake">Intake</Link>
+          <br></br>
+          <Link to="/order">Order</Link>
+          <br/>
+          <Search />
         </div>
         <div className="col-6">
           <h4>Past Forms</h4>
+          <list>
+            <li>Intake 1</li>
+            <li>Intake 2</li>
+          </list>
         </div>
       </div>
-      <Link to="/intake">Intake</Link>
-      <br></br>
-      <Link to="/order">Order</Link>
-      <List />
+
     </div>
   );
 }
