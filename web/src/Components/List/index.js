@@ -1,11 +1,14 @@
 import Container from "./container";
 import Search from "../Search";
+import {useState} from "react";
 
 function List() {
+    const [query, setQuery] = useState({})
+
     return (
         <div>
-            <Search />
-            <Container />
+            <Search onQuery={setQuery}/>
+            <Container query={query}/>
         </div>
     )
 }

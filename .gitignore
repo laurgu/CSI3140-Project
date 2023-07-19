@@ -23,3 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 /.idea
+./web/node_modules
+./api/node_modules
+/web/node_modules
+/api/node_modules
+
