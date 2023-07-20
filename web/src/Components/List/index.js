@@ -1,8 +1,10 @@
-import {useEffect, useState} from "react";
-import fetchData from "../../api/documents";
 import Element from "./element";
 
 function List({list}) {
+
+    if (list.error) {
+        return <div><p>Error...</p></div>
+    }
 
     return (
         <div>

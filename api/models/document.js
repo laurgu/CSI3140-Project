@@ -6,17 +6,13 @@ const DocumentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    content: {
-        type: String,
-    },
     date: {
-        type: Date
-    },
-    author: {
-        type: String,
+        type: Date,
         required: true
-    }
-});
+    },
+},
+    {strict:false}
+);
 
 
 const Document = (module.exports = mongoose.model('documents', DocumentSchema))

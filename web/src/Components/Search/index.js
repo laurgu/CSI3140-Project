@@ -1,8 +1,7 @@
 import List from "../List";
 import SearchBar from "./search";
 import {useEffect, useState} from "react";
-import fetchData from "../../api/documents";
-
+import {fetchData, putData} from "../../api/documents";
 
 const searchStyle = {
     margin: '4vh auto'

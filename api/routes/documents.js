@@ -6,7 +6,14 @@ const Document = require('../models/document')
 router.get('/documents', async (req, res, next) => {
     try {
         const title = req.query.title || '';
-        const documents = await Document.find({title: {$regex: '' + title, $options: 'i'}})
+        const id = req.query.id || '';
+
+        let documents;
+        if (req.query.id) {
+            documents = await Document.findById(id);
+        } else {
+            documents = await Document.find({title: {$regex: '' + title, $options: 'i'}});
+        }
 
         console.log("\n\nNew Request");
         console.log(req.originalUrl);
@@ -19,13 +26,20 @@ router.get('/documents', async (req, res, next) => {
     }
 })
 
-router.post('/documents', async (req, res, next) => {
+router.put('/documents', async (req, res, next) => {
     try {
-        const document = new Document(req.body)
-        const savedDocument = await document.save()
-        res.json(savedDocument)
+        console.log("HIT PUT");
+        console.log(req.body);
+        const filter = {_id: req.body._id};
+        const update = req.body;
+        const options = {
+            upsert: true,
+            new: true
+        };
+        await Document.findOneAndUpdate(filter, update, options);
     } catch (error) {
-        next(error)
+        console.log("Errors in PUT: ");
+        console.log(error);
     }
 })
 

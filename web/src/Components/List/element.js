@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom";
 
 
 const elementStyle = {
@@ -19,6 +20,7 @@ function element (props) {
             <p>{props.description}</p>
             <p>{props.client}</p>
             <p>{props.date}</p>
+            <Link to={`/document/${props.id}`}>View</Link>
         </div>
     )
 }
