@@ -37,7 +37,14 @@ router.put("/documents", async (req, res, next) => {
       upsert: true,
       new: true,
     };
-    await Document.findOneAndUpdate(filter, update, options);
+    if (!req.body._id) {
+      delete req.body._id;
+      console.log("Creating new document")
+      await Document.create(req.body);
+    } else {
+      console.log("Updating existing document")
+      await Document.findOneAndUpdate(filter, update, options);
+    }
   } catch (error) {
     console.log("Errors in PUT: ");
     console.log(error);

@@ -8,8 +8,9 @@ const DocumentSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        required: true
+        required: false
     },
+
 },
     {strict:false}
 );
