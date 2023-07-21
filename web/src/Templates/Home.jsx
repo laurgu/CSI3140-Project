@@ -1,11 +1,25 @@
-import React from "react";
-import "bootstrap/dist/css/bootstrap.css";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { fetchData } from "../api/documents";
 import Search from "../Components/Search";
 
 function Home() {
   const navigate = useNavigate();
+  const [documentList, setDocumentList] = useState([]);
+
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      const query = {};
+      try {
+        const documents = await fetchData(query);
+        setDocumentList(documents);
+      } catch (error) {
+        console.error("Error fetching documents:", error);
+      }
+    };
+
+    fetchDocuments();
+  }, []);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -16,10 +30,11 @@ function Home() {
       navigate("/order");
     }
   };
+
   return (
     <div style={{ margin: "2vw 2vw 2vw 2vw" }}>
       <h1>HOME</h1>
-      <hr></hr>
+      <hr />
       <div className="row">
         <div className="col-6">
           <h4>Create New Form</h4>
@@ -32,28 +47,29 @@ function Home() {
               <option value="intake">Intake</option>
               <option value="order">Order</option>
             </select>
-            <input
-              type="submit"
-              value="create"
-              style={{ marginLeft: "1vw" }}
-            ></input>
+            <input type="submit" value="create" style={{ marginLeft: "1vw" }} />
           </form>
-          <Link to="/intake">Intake</Link>
-          <br></br>
-          <Link to="/order">Order</Link>
-          <br/>
           <Search />
         </div>
         <div className="col-6">
           <h4>Past Forms</h4>
-          <list>
-            <li>Intake 1</li>
-            <li>Intake 2</li>
-          </list>
+          {documentList.length > 0 ? (
+            <ul>
+              {documentList.slice(0, 5).map((document) => (
+                <li key={document._id}>
+                  <Link to={`/document/${document._id}`}>
+                    {document._id ? document.documentTitle : "No ID"}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No documents found.</p>
+          )}
         </div>
       </div>
-
     </div>
   );
 }
+
 export default Home;

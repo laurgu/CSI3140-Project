@@ -1,15 +1,96 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "../Styles/General.css";
-
+import { putData } from "../api/documents";
 function Order() {
   const navigate = useNavigate();
+
+  const [orderNo, setOrderNo] = useState("");
+  const [day, setDay] = useState("");
+  const [month, setMonth] = useState("01");
+  const [year, setYear] = useState("");
+  const [homePhone, setHomePhone] = useState("");
+  const [workPhone, setWorkPhone] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [email, setEmail] = useState("");
+  const [province, setProvince] = useState("");
+  const [country, setCountry] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [descProduct1, setDescProduct1] = useState("");
+  const [descProduct2, setDescProduct2] = useState("");
+  const [descProduct3, setDescProduct3] = useState("");
+  const [descProduct4, setDescProduct4] = useState("");
+  const [descProduct5, setDescProduct5] = useState("");
+  const [qtyProduct1, setQtyProduct1] = useState("");
+  const [qtyProduct2, setQtyProduct2] = useState("");
+  const [qtyProduct3, setQtyProduct3] = useState("");
+  const [qtyProduct4, setQtyProduct4] = useState("");
+  const [qtyProduct5, setQtyProduct5] = useState("");
+  const [unitProduct1, setUnitProduct1] = useState("");
+  const [unitProduct2, setUnitProduct2] = useState("");
+  const [unitProduct3, setUnitProduct3] = useState("");
+  const [unitProduct4, setUnitProduct4] = useState("");
+  const [unitProduct5, setUnitProduct5] = useState("");
+  const [costProduct1, setCostProduct1] = useState("");
+  const [costProduct2, setCostProduct2] = useState("");
+  const [costProduct3, setCostProduct3] = useState("");
+  const [costProduct4, setCostProduct4] = useState("");
+  const [costProduct5, setCostProduct5] = useState("");
+  const [notes, setNotes] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [subtotal, setSubtotal] = useState("");
+  const [tax, setTax] = useState("");
+  const [deposit, setDeposit] = useState("");
+  const [total, setTotal] = useState("");
 
   const handleHomeButton = (event) => {
     event.preventDefault();
     navigate("/");
   };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    const documentTitle = `Order Form: ${orderNo}`;
+    const documentType = "Order";
+    const formData = {
+      documentTitle,
+      documentType,
+      orderNo,
+      day,
+      month,
+      year,
+      homePhone,
+      streetAddress,
+      city,
+      email,
+      province,
+      country,
+      postalCode,
+      descProduct1,
+      descProduct2,
+      descProduct3,
+      descProduct4,
+      descProduct5,
+      notes,
+      paymentMethod,
+      subtotal,
+      tax,
+      deposit,
+      total,
+    };
+
+    try {
+      const response = await putData(formData);
+
+      console.log("Form data saved successfully:", response);
+      navigate("/");
+    } catch (error) {
+      console.error("Error saving form data:", error);
+    }
+  };
+
   return (
     <div className="form">
       <div style={{ position: "relative" }}>
@@ -27,7 +108,7 @@ function Order() {
       </div>
       <h1>ORDER FORM</h1>
       <br></br>
-      <form>
+      <form onSubmit={handleFormSubmit}>
         <div className="row">
           <div className="col-3">
             <h4>Order Number:</h4>
@@ -41,6 +122,8 @@ function Order() {
             <input
               id="order-no"
               type="number"
+              value={orderNo}
+              onChange={(e) => setOrderNo(e.target.value)}
               style={{ width: "100%" }}
             ></input>
           </div>
@@ -51,6 +134,8 @@ function Order() {
             <input
               id="day"
               type="number"
+              value={day}
+              onChange={(e) => setDay(e.target.value)}
               style={{ width: "100%", display: "inline" }}
             ></input>
           </div>
@@ -58,7 +143,12 @@ function Order() {
             <p>Month:</p>
           </div>
           <div className="col-2">
-            <select id="month" style={{ marginLeft: "1vw" }}>
+            <select
+              id="month"
+              style={{ marginLeft: "1vw" }}
+              value={month}
+              onChange={(e) => setMonth(e.target.value)}
+            >
               <option value="01">01</option>
               <option value="02">02</option>
               <option value="03">03</option>
@@ -77,7 +167,13 @@ function Order() {
             <p>Year:</p>
           </div>
           <div className="col-2">
-            <input id="year" type="number" style={{ width: "100%" }}></input>
+            <input
+              id="year"
+              type="number"
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
+              style={{ width: "100%" }}
+            ></input>
           </div>
         </div>
 
@@ -90,14 +186,24 @@ function Order() {
             <h4>Home Phone:</h4>
           </div>
           <div className="col-4">
-            <input id="home-phone" type="number"></input>
+            <input
+              id="home-phone"
+              type="number"
+              value={homePhone}
+              onChange={(e) => setHomePhone(e.target.value)}
+            ></input>
           </div>
 
           <div className="col-2">
             <h4>Street Address:</h4>
           </div>
           <div className="col-4">
-            <input id="street-address" type="text"></input>
+            <input
+              id="street-address"
+              type="text"
+              value={streetAddress}
+              onChange={(e) => setStreetAddress(e.target.value)}
+            ></input>
           </div>
         </div>
 
@@ -106,14 +212,24 @@ function Order() {
             <h4>Work Phone:</h4>
           </div>
           <div className="col-4">
-            <input id="work-phone" type="number"></input>
+            <input
+              id="work-phone"
+              value={workPhone}
+              onChange={(e) => setWorkPhone(e.target.value)}
+              type="number"
+            ></input>
           </div>
 
           <div className="col-2">
             <h4>City:</h4>
           </div>
           <div className="col-4">
-            <input id="city" type="text"></input>
+            <input
+              id="city"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              type="text"
+            ></input>
           </div>
         </div>
 
@@ -122,14 +238,24 @@ function Order() {
             <h4>Email:</h4>
           </div>
           <div className="col-4">
-            <input id="email" type="email"></input>
+            <input
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+            ></input>
           </div>
 
           <div className="col-2">
             <h4>Province:</h4>
           </div>
           <div className="col-4">
-            <input id="province" type="text"></input>
+            <input
+              id="province"
+              value={province}
+              onChange={(e) => setProvince(e.target.value)}
+              type="text"
+            ></input>
           </div>
         </div>
         <div className="row">
@@ -138,7 +264,12 @@ function Order() {
             <h4>Country:</h4>
           </div>
           <div className="col-4">
-            <input id="country" type="text"></input>
+            <input
+              id="country"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              type="text"
+            ></input>
           </div>
         </div>
 
@@ -148,7 +279,12 @@ function Order() {
             <h4>Postal Code:</h4>
           </div>
           <div className="col-4">
-            <input id="postal-code" type="text"></input>
+            <input
+              id="postal-code"
+              value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
+              type="text"
+            ></input>
           </div>
         </div>
 
@@ -175,26 +311,36 @@ function Order() {
             <input
               id="desc-product1"
               type="text"
+              value={descProduct1}
+              onChange={(e) => setDescProduct1(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="desc-product2"
               type="text"
+              value={descProduct2}
+              onChange={(e) => setDescProduct2(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="desc-product3"
               type="text"
+              value={descProduct3}
+              onChange={(e) => setDescProduct3(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="desc-product4"
               type="text"
+              value={descProduct4}
+              onChange={(e) => setDescProduct4(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="desc-product5"
               type="text"
+              value={descProduct5}
+              onChange={(e) => setDescProduct5(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
           </div>
@@ -202,26 +348,36 @@ function Order() {
             <input
               id="qty-product1"
               type="number"
+              value={qtyProduct1}
+              onChange={(e) => setQtyProduct1(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="qty-product2"
               type="number"
+              value={qtyProduct2}
+              onChange={(e) => setQtyProduct2(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="qty-product3"
               type="number"
+              value={qtyProduct3}
+              onChange={(e) => setQtyProduct3(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="qty-product4"
               type="number"
+              value={qtyProduct4}
+              onChange={(e) => setQtyProduct4(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="qty-product5"
               type="number"
+              value={qtyProduct5}
+              onChange={(e) => setQtyProduct5(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
           </div>
@@ -229,26 +385,36 @@ function Order() {
             <input
               id="unit-product1"
               type="number"
+              value={unitProduct1}
+              onChange={(e) => setUnitProduct1(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="unit-product2"
               type="number"
+              value={unitProduct2}
+              onChange={(e) => setUnitProduct2(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="unit-product3"
               type="number"
+              value={unitProduct3}
+              onChange={(e) => setUnitProduct3(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="unit-product4"
               type="number"
+              value={unitProduct4}
+              onChange={(e) => setUnitProduct4(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="unit-product5"
               type="number"
+              value={unitProduct5}
+              onChange={(e) => setUnitProduct5(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
           </div>
@@ -256,26 +422,36 @@ function Order() {
             <input
               id="cost-product1"
               type="number"
+              value={costProduct1}
+              onChange={(e) => setCostProduct1(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="cost-product2"
               type="number"
+              value={costProduct2}
+              onChange={(e) => setCostProduct2(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="cost-product3"
               type="number"
+              value={costProduct3}
+              onChange={(e) => setCostProduct3(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="cost-product4"
               type="number"
+              value={costProduct4}
+              onChange={(e) => setCostProduct4(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="cost-product5"
               type="number"
+              value={costProduct5}
+              onChange={(e) => setCostProduct5(e.target.value)}
               style={{ width: "100%" }}
             ></input>
           </div>
@@ -296,6 +472,8 @@ function Order() {
             <textarea
               id="notes"
               style={{ width: "100%", height: "10vw" }}
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
             ></textarea>
           </div>
           <div className="col-1"></div>
@@ -309,30 +487,44 @@ function Order() {
             <input
               id="subtotal"
               type="number"
+              value={subtotal}
+              onChange={(e) => setSubtotal(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="tax"
               type="number"
+              value={tax}
+              onChange={(e) => setTax(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
             <input
               id="deposit"
               type="number"
+              value={deposit}
+              onChange={(e) => setDeposit(e.target.value)}
               style={{ width: "100%", marginBottom: "1vw" }}
             ></input>
-            <input id="total" type="number" style={{ width: "100%" }}></input>
+            <input
+              id="total"
+              type="number"
+              value={total}
+              onChange={(e) => setTotal(e.target.value)}
+              style={{ width: "100%" }}
+            ></input>
           </div>
         </div>
 
-        <h4 style={{ dispaly: "inline" }}>Form of Payment: </h4>
-        <div style={{ dispaly: "inline" }}>
+        <h4 style={{ display: "inline" }}>Form of Payment: </h4>
+        <div style={{ display: "inline" }}>
           <label style={{ marginRight: "2vw" }}>
             <input
               type="radio"
               name="paymentMethod"
               value="cash"
               style={{ marginRight: "0.2vw" }}
+              checked={paymentMethod === "cash"}
+              onChange={() => setPaymentMethod("cash")}
             />
             Cash
           </label>
@@ -343,6 +535,8 @@ function Order() {
               name="paymentMethod"
               value="check"
               style={{ marginRight: "0.2vw" }}
+              checked={paymentMethod === "check"}
+              onChange={() => setPaymentMethod("check")}
             />
             Check
           </label>
@@ -353,6 +547,8 @@ function Order() {
               name="paymentMethod"
               value="creditCard"
               style={{ marginRight: "0.2vw" }}
+              checked={paymentMethod === "creditCard"}
+              onChange={() => setPaymentMethod("creditCard")}
             />
             Card
           </label>
