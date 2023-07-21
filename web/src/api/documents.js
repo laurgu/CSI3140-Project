@@ -27,14 +27,7 @@ async function putData(data) {
             headers: {
                 "Content-Type": "application/json",
             },
-        }).then(function (response) {
-            if (response.status == 200) //return response.json();
-                console.log(response);
-            else console.log('Something went wrong on api server!');
-        })
-            .catch(function (error) {
-                console.error(error);
-            });
+        }).then((response) => response.json())
     } catch (e) {
         console.log(e);
         return [];

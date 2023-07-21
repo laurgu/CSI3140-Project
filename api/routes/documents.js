@@ -44,14 +44,28 @@ router.put("/documents", async (req, res, next) => {
             new: true,
         };
         if (!req.body._id) {
-            delete req.body._id;
-            console.log("Creating new document")
+            console.log("Creating new document");
+            const temp = "Untitled" + Math.floor(Math.random() * 1000);
+            req.body.title = req.body.title || temp;
+
             await Document.create(req.body);
+            const newdoc = await Document.findOne({title: req.body.title}).exec();
+            console.log("New document: ");
+            console.log(newdoc);
+            if (req.body.title === temp) {
+                const update = { title: newdoc._id };
+                const filter = { _id: newdoc._id };
+                await Document.findByIdAndUpdate(filter, update);
+            }
+            req.body._id = newdoc._id;
         } else {
             console.log("Updating document " + req.body._id)
             await Document.findOneAndUpdate(filter, update, options);
         }
-        return res.status(200).send();
+
+        res.send({
+            _id: req.body._id,
+        });
 
     } catch (error) {
         console.log("Errors in PUT: ");

@@ -62,6 +62,9 @@ const FormTemplate = ({setDoc, schema}) => {
                 >
                     Submit
                 </Button>
+                <Button variant="contained" onClick={onReset} style={{marginRight: 8}}>
+                    Reset
+                </Button>
                 <Button variant="contained" onClick={onCancel} style={{marginRight: 8}}>
                     Cancel
                 </Button>
@@ -91,8 +94,8 @@ function FormControls({doc, setReload, setDoc}) {
             componentMapper={componentMapper}
             schema={doc}
             onSubmit={() => asyncSubmit(doc)}
-            onCancel={() => setReload(true)}
-            onReset={() => console.log("Resetting")}
+            onCancel={() => window.location.assign("/")}
+            onReset={() => window.location.reload()}
         />
     );
 }

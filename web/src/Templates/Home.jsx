@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {fetchData} from "../api/documents";
+import {fetchData, putData} from "../api/documents";
 import Search from "../Components/Search";
 
 function Home() {
@@ -21,13 +21,22 @@ function Home() {
         fetchDocuments();
     }, []);
 
-    const handleFormSubmit = (event) => {
+    const handleFormSubmit = async (event) => {
         event.preventDefault();
         const formType = document.getElementById("formType").value;
         if (formType === "intake") {
             navigate("/intake");
         } else if (formType === "order") {
             navigate("/order");
+        } else if (formType === "custom") {
+            const id = (await putData({
+                    title: "New",
+                    client: "Untitled",
+                    type: "custom",
+                    author: "Untitled",
+                }))['_id']
+            navigate(`/document/${id}`);
+
         }
     };
 
@@ -46,6 +55,7 @@ function Home() {
                             </option>
                             <option value="intake">Intake</option>
                             <option value="order">Order</option>
+                            <option value="custom">Custom</option>
                         </select>
                         <input type="submit" value="create" style={{marginLeft: "1vw"}}/>
                     </form>
