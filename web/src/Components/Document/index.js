@@ -19,11 +19,14 @@ function Document() {
         fields: []
     });
     const [reload, setReload] = useState(false)
+    const [loaded, setLoaded] = useState(false);
 
 
     useEffect(() => {
         fetchData({id: id}).then((data) => {
+            console.log("Loaded Data:");
             console.log(data);
+            console.log(' ');
             let values = {
                 fields: [
                     {
@@ -46,9 +49,10 @@ function Document() {
                 })
             }
 
-
+            values.id = data._id;
             setDoc(values);
             if (reload) setReload(false);
+            if (!loaded) setLoaded(true);
         });
     }, [id, reload]);
 
@@ -57,12 +61,13 @@ function Document() {
         <div style={documentStyle}>
             <Link to="/">Home</Link>
             <h1>Document {id}</h1>
-            <div style={{margin: "20px 0px"}}>
-                <FormControls doc={doc} setReload={setReload}/>
+            <div style={{margin: "20px 0px", padding: "10px" }}>
+                <FormControls doc={doc} setReload={() => window.location.reload()}/>
+                <Button variant="contained" onClick={() => setShow(true)} style={{marginTop: "10px"}}>
+                    Add Field
+                </Button>
             </div>
-            <Button variant="contained" onClick={() => setShow(true)}>
-                Add Field
-            </Button>
+
             <NewField doc={doc} setDoc={setDoc} setShow={setShow} show={show}/>
         </div>
     )

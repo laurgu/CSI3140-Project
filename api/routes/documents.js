@@ -9,17 +9,16 @@ router.get("/documents", async (req, res, next) => {
         const _id = req.query._id || "";
         const client = req.query.client || "";
 
+        let documents;
         if (id !== "" || _id !== "") {
-            console.log("HIT GET");
-            let document = await Document.findById(_id);
-            res.json(document);
-            return;
+            console.log("HIT GET BY ID");
+            documents = await Document.findById(_id);
+        } else {
+            documents = await Document.find({
+                title: {$regex: "" + title, $options: "i"},
+                client: {$regex: "" + client, $options: "i"},
+            });
         }
-
-        let documents = await Document.find({
-            title: {$regex: "" + title, $options: "i"},
-            client: {$regex: "" + client, $options: "i"},
-        });
 
         console.log(id);
         console.log(_id);
@@ -51,7 +50,7 @@ router.put("/documents", async (req, res, next) => {
             console.log("Creating new document")
             await Document.create(req.body);
         } else {
-            console.log("Updating existing document")
+            console.log("Updating document " + req.body._id)
             await Document.findOneAndUpdate(filter, update, options);
         }
     } catch (error) {
@@ -63,7 +62,6 @@ router.put("/documents", async (req, res, next) => {
 router.get("/recent", async (req, res, next) => {
     try {
         let documents = await Document.find({}).sort({_id: -1}).limit(5);
-
         res.json(documents);
         console.log("\n\nNew Request for Recent Documents");
         console.log(documents);

@@ -11,6 +11,8 @@ function Order() {
 
     const [orderNo, setOrderNo] = useState("");
     const [day, setDay] = useState("");
+    const [client, setClient] = useState("");
+    const [author, setAuthor] = useState("");
     const [month, setMonth] = useState("01");
     const [year, setYear] = useState("");
     const [homePhone, setHomePhone] = useState("");
@@ -56,6 +58,8 @@ function Order() {
                     if (documentData) {
                         const {
                             orderNo,
+                            client,
+                            author,
                             day,
                             month,
                             year,
@@ -97,6 +101,8 @@ function Order() {
 
                         // Update all state hooks with the fetched data
                         setOrderNo(orderNo);
+                        setClient(client);
+                        setAuthor(author);
                         setDay(day);
                         setMonth(month);
                         setYear(year);
@@ -140,7 +146,6 @@ function Order() {
                 }
             };
 
-            fetchDocument();
         }
     }, [id]);
 
@@ -155,6 +160,8 @@ function Order() {
         const documentType = "Order";
         const formData = {
             title,
+            client,
+            author,
             documentType,
             orderNo,
             day,
@@ -223,6 +230,39 @@ function Order() {
             <h1>ORDER FORM</h1>
             <br></br>
             <form onSubmit={handleFormSubmit}>
+                <div className="row">
+                    <div className="row">
+                        <div className="col-3">
+                            <h4>Client:</h4>
+                        </div>
+                        <div className="col-9">
+                            <h4>Author:</h4>
+                        </div>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-3">
+                        <input
+                            id="client"
+                            type="text"
+                            value={client}
+                            onChange={(e) => setClient(e.target.value)}
+                            style={{width: "100%"}}
+                        ></input>
+                    </div>
+                    <div className="col-3">
+                        <input
+                            id="author"
+                            type="text"
+                            value={author}
+                            onChange={(e) => setAuthor(e.target.value)}
+                            style={{width: "100%"}}
+                        ></input>
+                    </div>
+                </div>
+                <br></br>
+                <hr></hr>
+                <br></br>
                 <div className="row">
                     <div className="col-3">
                         <h4>Order Number:</h4>

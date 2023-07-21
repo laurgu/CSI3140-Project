@@ -20,7 +20,7 @@ async function fetchData(query, route = "documents") {
 async function putData(data) {
     const url = "http://localhost:7000/documents";
     try {
-        console.log("Data being inserted:", data);
+        console.log("Data being PUT:", data);
         return await fetch(url, {
             method: "PUT",
             body: JSON.stringify(data),

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import FormRenderer from "@data-driven-forms/react-form-renderer/form-renderer";
 import componentTypes from "@data-driven-forms/react-form-renderer/component-types";
 import useFormApi from "@data-driven-forms/react-form-renderer/use-form-api";
@@ -8,13 +8,14 @@ import Button from "@mui/material/Button";
 import {DatePicker} from "@data-driven-forms/mui-component-mapper";
 import {putData} from "../../api/documents";
 import {Grid} from "@mui/material";
+import NewField from "./newfield";
 
 const componentMapper = {
     [componentTypes.TEXT_FIELD]: TextField,
     [componentTypes.DATE_PICKER]: DatePicker,
 };
 
-const FormTemplate = ({formFields, schema}) => {
+const FormTemplate = ({setShow, schema}) => {
     const {handleSubmit, onReset, onCancel, getState} = useFormApi();
     const {submitting, valid, pristine} = getState();
 
@@ -33,7 +34,6 @@ const FormTemplate = ({formFields, schema}) => {
                 <Grid container item xs={6} direction="column">
                     {left.map((field, index) => {
                         if (field.hidden) return null;
-
                         return (
                             <div key={index} style={{margin: "10px",}}>
                                 {field.label}
@@ -44,6 +44,8 @@ const FormTemplate = ({formFields, schema}) => {
                                     type={field.type}
                                     isRequired={field.isRequired}
                                     helperText={field.helperText}
+                                    initialValue={field.initialValue}
+                                    // value={field.value || field.initialValue}
                                 />
                             </div>
                         );
@@ -52,7 +54,6 @@ const FormTemplate = ({formFields, schema}) => {
                 <Grid container item xs={6} direction="column">
                     {right.map((field, index) => {
                         if (field.hidden) return null;
-
                         return (
                             <div key={index} style={{margin: "10px",}}>
                                 {field.label}
@@ -63,6 +64,7 @@ const FormTemplate = ({formFields, schema}) => {
                                     type={field.type}
                                     isRequired={field.isRequired}
                                     helperText={field.helperText}
+                                    initialValue={field.initialValue}
                                 />
                             </div>
                         );
@@ -73,7 +75,7 @@ const FormTemplate = ({formFields, schema}) => {
                 {() => (
                     <div style={{marginTop: 8}}>
                         <Button
-                            disabled={submitting || !valid}
+                            disabled={submitting || !valid || pristine}
                             style={{marginRight: 8}}
                             type="submit"
                             color="primary"
@@ -81,15 +83,7 @@ const FormTemplate = ({formFields, schema}) => {
                         >
                             Submit
                         </Button>
-                        <Button
-                            disabled={pristine}
-                            style={{marginRight: 8}}
-                            onClick={onReset}
-                            variant="contained"
-                        >
-                            Reset
-                        </Button>
-                        <Button variant="contained" onClick={onCancel}>
+                        <Button variant="contained" onClick={onCancel} style={{marginRight: 8}}>
                             Cancel
                         </Button>
                     </div>
@@ -99,9 +93,18 @@ const FormTemplate = ({formFields, schema}) => {
     );
 };
 
-function asyncSubmit(values, api) {
-    return putData(values);
-}
+const asyncSubmit = async (doc) => {
+    console.log("Submitting");
+    let clean = {
+        _id: doc.id
+    };
+    doc.fields.filter((field) => !field.hidden).forEach((field) => {
+        clean[field.name] = document.getElementsByName(field.name)[0].value;
+    });
+    console.log(clean);
+    await putData(clean);
+    console.log("Submitted");
+};
 
 function FormControls({doc, setReload}) {
     return (
@@ -109,7 +112,7 @@ function FormControls({doc, setReload}) {
             FormTemplate={FormTemplate}
             componentMapper={componentMapper}
             schema={doc}
-            onSubmit={asyncSubmit}
+            onSubmit={() => asyncSubmit(doc)}
             onCancel={() => setReload(true)}
             onReset={() => console.log("Resetting")}
         />
