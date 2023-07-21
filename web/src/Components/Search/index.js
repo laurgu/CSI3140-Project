@@ -12,7 +12,19 @@ function Search() {
     const [list, setList] = useState([]);
 
     useEffect(() => {
-        fetchData(query).then(result => setList(result))
+        fetchData({
+            title: query.title,
+        }).then(result => result.filter((document) => {
+            if (query.client)
+                return document.client.includes(query.client);
+            else
+                return true
+        }).filter((document) => {
+            if (query.id)
+                return document._id.includes(query.id);
+            else
+                return true
+        })).then(setList)
     }, [query])
 
 

@@ -11,9 +11,9 @@ function SearchBar({onQuery}) {
     function handleInput(e) {
         // console.log(e.target.value);
         onQuery({
-            title: e.target.name,
-            id: e.target.name,
-            client: e.target.name
+            title: document.getElementsByName('title')[0].value,
+            id: document.getElementsByName('id')[0].value,
+            client: document.getElementsByName('client')[0].value
         });
     }
 
