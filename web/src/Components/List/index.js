@@ -9,7 +9,7 @@ function List({list}) {
     return (
         <div>
             {list.map((item) => (
-                <Element name={item.title} id={item._id} description={item.description} client={item.client}
+                <Element name={item.title} _id={item._id} description={item.description} client={item.client}
                          date={item.date}/>
             ))}
         </div>

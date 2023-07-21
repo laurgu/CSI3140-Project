@@ -96,7 +96,7 @@ const FormTemplate = ({setShow, schema}) => {
 const asyncSubmit = async (doc) => {
     console.log("Submitting");
     let clean = {
-        _id: doc.id
+        _id: doc._id
     };
     doc.fields.filter((field) => !field.hidden).forEach((field) => {
         clean[field.name] = document.getElementsByName(field.name)[0].value;

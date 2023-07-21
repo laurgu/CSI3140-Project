@@ -16,11 +16,11 @@ function element(props) {
     return (
         <div style={elementStyle}>
             <p><b>{props.name}</b></p>
-            <p><b>ID:</b> {props.id}</p>
+            <p><b>ID:</b> {props._id}</p>
             <p>{props.description}</p>
             <p>{props.client}</p>
             <p>{props.date}</p>
-            <Link to={`/document/${props.id}`}>View</Link>
+            <Link to={`/document/${props._id}`}>View</Link>
         </div>
     )
 }

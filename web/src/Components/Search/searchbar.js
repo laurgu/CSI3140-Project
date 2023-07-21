@@ -12,7 +12,7 @@ function SearchBar({onQuery}) {
         // console.log(e.target.value);
         onQuery({
             title: document.getElementsByName('title')[0].value,
-            id: document.getElementsByName('id')[0].value,
+            _id: document.getElementsByName('id')[0].value,
             client: document.getElementsByName('client')[0].value
         });
     }

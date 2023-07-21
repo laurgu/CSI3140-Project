@@ -5,12 +5,11 @@ const Document = require("../models/document");
 router.get("/documents", async (req, res, next) => {
     try {
         const title = req.query.title || "";
-        const id = req.query.id || "";
         const _id = req.query._id || "";
         const client = req.query.client || "";
 
         let documents;
-        if (id !== "" || _id !== "") {
+        if (_id !== "") {
             console.log("HIT GET BY ID");
             documents = await Document.findById(_id);
         } else {
@@ -20,7 +19,6 @@ router.get("/documents", async (req, res, next) => {
             });
         }
 
-        console.log(id);
         console.log(_id);
         console.log("\n\nNew Request");
         console.log(req.originalUrl);

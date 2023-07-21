@@ -1,5 +1,5 @@
 import List from "../List";
-import SearchBar from "./search";
+import SearchBar from "./searchbar";
 import {useEffect, useState} from "react";
 import {fetchData} from "../../api/documents";
 
@@ -20,8 +20,8 @@ function Search() {
             else
                 return true
         }).filter((document) => {
-            if (query.id)
-                return document._id.includes(query.id);
+            if (query._id)
+                return document._id.includes(query._id);
             else
                 return true
         })).then(setList)

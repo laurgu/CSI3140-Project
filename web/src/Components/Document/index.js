@@ -49,7 +49,7 @@ function Document() {
                 })
             }
 
-            values.id = data._id;
+            values._id = data._id;
             setDoc(values);
             if (reload) setReload(false);
             if (!loaded) setLoaded(true);
