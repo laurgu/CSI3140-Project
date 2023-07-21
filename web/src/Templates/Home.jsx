@@ -55,13 +55,24 @@ function Home() {
           <h4>Recent Forms</h4>
           {documentList.length > 0 ? (
             <ul>
-              {documentList.map((document) => (
-                <li key={document._id}>
-                  <Link to={`/document/${document._id}`}>
-                    {document.documentTitle}
-                  </Link>
-                </li>
-              ))}
+              {documentList.map((document) => {
+                let linkTo;
+                if (document.documentType === "Intake") {
+                  linkTo = `/intake/${document._id}`;
+                } else if (document.documentType === "Order") {
+                  linkTo = `/order/${document._id}`;
+                } else {
+                  // Add more cases for other document types, if needed.
+                  // For now, I assume you only have "Intake" and "Order".
+                  linkTo = "/";
+                }
+
+                return (
+                  <li key={document._id}>
+                    <Link to={linkTo}>{document.documentTitle}</Link>
+                  </li>
+                );
+              })}
             </ul>
           ) : (
             <p>No documents found.</p>

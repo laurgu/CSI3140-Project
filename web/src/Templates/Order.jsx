@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "../Styles/General.css";
-import { putData } from "../api/documents";
+import { putData, fetchData } from "../api/documents";
 function Order() {
+  const { id } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
 
   const [orderNo, setOrderNo] = useState("");
@@ -44,6 +46,102 @@ function Order() {
   const [tax, setTax] = useState("");
   const [deposit, setDeposit] = useState("");
   const [total, setTotal] = useState("");
+
+  useEffect(() => {
+    if (id) {
+      const fetchDocument = async () => {
+        try {
+          const documentData = await fetchData({ id });
+          if (documentData) {
+            const {
+              orderNo,
+              day,
+              month,
+              year,
+              homePhone,
+              workPhone,
+              streetAddress,
+              city,
+              email,
+              province,
+              country,
+              postalCode,
+              descProduct1,
+              descProduct2,
+              descProduct3,
+              descProduct4,
+              descProduct5,
+              qtyProduct1,
+              qtyProduct2,
+              qtyProduct3,
+              qtyProduct4,
+              qtyProduct5,
+              unitProduct1,
+              unitProduct2,
+              unitProduct3,
+              unitProduct4,
+              unitProduct5,
+              costProduct1,
+              costProduct2,
+              costProduct3,
+              costProduct4,
+              costProduct5,
+              notes,
+              paymentMethod,
+              subtotal,
+              tax,
+              deposit,
+              total,
+            } = documentData;
+
+            // Update all state hooks with the fetched data
+            setOrderNo(orderNo);
+            setDay(day);
+            setMonth(month);
+            setYear(year);
+            setHomePhone(homePhone);
+            setWorkPhone(workPhone);
+            setStreetAddress(streetAddress);
+            setCity(city);
+            setEmail(email);
+            setProvince(province);
+            setCountry(country);
+            setPostalCode(postalCode);
+            setDescProduct1(descProduct1);
+            setDescProduct2(descProduct2);
+            setDescProduct3(descProduct3);
+            setDescProduct4(descProduct4);
+            setDescProduct5(descProduct5);
+            setQtyProduct1(qtyProduct1);
+            setQtyProduct2(qtyProduct2);
+            setQtyProduct3(qtyProduct3);
+            setQtyProduct4(qtyProduct4);
+            setQtyProduct5(qtyProduct5);
+            setUnitProduct1(unitProduct1);
+            setUnitProduct2(unitProduct2);
+            setUnitProduct3(unitProduct3);
+            setUnitProduct4(unitProduct4);
+            setUnitProduct5(unitProduct5);
+            setCostProduct1(costProduct1);
+            setCostProduct2(costProduct2);
+            setCostProduct3(costProduct3);
+            setCostProduct4(costProduct4);
+            setCostProduct5(costProduct5);
+            setNotes(notes);
+            setPaymentMethod(paymentMethod);
+            setSubtotal(subtotal);
+            setTax(tax);
+            setDeposit(deposit);
+            setTotal(total);
+          }
+        } catch (error) {
+          console.error("Error fetching document data:", error);
+        }
+      };
+
+      fetchDocument();
+    }
+  }, [id]);
 
   const handleHomeButton = (event) => {
     event.preventDefault();
