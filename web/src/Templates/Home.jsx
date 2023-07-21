@@ -52,14 +52,12 @@ function Home() {
           <Search />
         </div>
         <div className="col-6">
-          <h4>Past Forms</h4>
+          <h4>Recent Forms</h4>
           {documentList.length > 0 ? (
             <ul>
-              {documentList.slice(0, 5).map((document) => (
+              {documentList.map((document) => (
                 <li key={document._id}>
-                  <Link to={`/document/${document._id}`}>
-                    {document._id ? document.documentTitle : "No ID"}
-                  </Link>
+                  <Link to={`/document/${document._id}`}>{document.title}</Link>
                 </li>
               ))}
             </ul>
