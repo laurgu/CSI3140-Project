@@ -57,7 +57,9 @@ function Home() {
             <ul>
               {documentList.map((document) => (
                 <li key={document._id}>
-                  <Link to={`/document/${document._id}`}>{document.title}</Link>
+                  <Link to={`/document/${document._id}`}>
+                    {document.documentTitle}
+                  </Link>
                 </li>
               ))}
             </ul>
