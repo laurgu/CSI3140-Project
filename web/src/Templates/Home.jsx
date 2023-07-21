@@ -36,7 +36,6 @@ function Home() {
                     author: "Untitled",
                 }))['_id']
             navigate(`/document/${id}`);
-
         }
     };
 
@@ -47,7 +46,6 @@ function Home() {
             <div className="row">
                 <div className="col-6">
                     <h4>Create New Form</h4>
-
                     <form onSubmit={handleFormSubmit}>
                         <select id="formType">
                             <option value="" disabled selected hidden>

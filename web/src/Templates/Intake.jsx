@@ -79,7 +79,12 @@ function Intake() {
         };
 
         try {
-            const response = await putData(formData);
+            console.log(formData)
+            const data = Object.fromEntries(Object.entries(formData).filter(
+                ([key, value]) => value !== ""
+            ));
+            console.log("data", data)
+            const response = await putData(data)
 
             console.log("Form data saved successfully:", response);
             navigate("/");

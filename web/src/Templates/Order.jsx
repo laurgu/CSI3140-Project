@@ -6,7 +6,6 @@ import {fetchData, putData} from "../api/documents";
 
 function Order() {
     const {id} = useParams();
-    const location = useLocation();
     const navigate = useNavigate();
     const today = new Date();
 
