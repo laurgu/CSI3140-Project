@@ -1,4 +1,4 @@
-import {Box, Input, InputLabel, Typography} from "@mui/material";
+import {Box, Input, InputLabel, MenuItem, Select, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import {useEffect, useState} from "react";
@@ -51,10 +51,21 @@ function NewField({doc, setDoc, show, setShow}) {
                 </Typography>
 
                 <InputLabel htmlFor="name">Name</InputLabel>
-                <Input id="name" onChange={handleNameChange} value={name}/>
+                <Input id="name" onChange={handleNameChange} value={name} sx={{
+                    marginBottom: '20px',
+                    width: 250,
+                    height: 40,
+                }}/>
 
                 <InputLabel htmlFor="type">Type</InputLabel>
-                <Input id="type" onChange={handleTypeChange} value={type}/>
+                <Select sx={{
+                    width: 250,
+                    height: 50,
+                }} onChange={handleTypeChange} value={type}>
+                    <MenuItem value={'text'}>Text</MenuItem>
+                    <MenuItem value={'number'}>Number</MenuItem>
+                    <MenuItem value={'date'}>Date</MenuItem>
+                </Select>
 
                 {showInvalid && <p>Invalid input</p>}
 
@@ -73,6 +84,8 @@ function NewField({doc, setDoc, show, setShow}) {
                     } else {
                         setShowInvalid(true);
                     }
+                }} variant="contained" style={{
+                    marginLeft: "10px"
                 }}>
                     Add
                 </Button>

@@ -15,18 +15,17 @@ function Document() {
 
     const [show, setShow] = useState(false);
     const [doc, setDoc] = useState({
+        _id: id,
         title: "Error",
         fields: []
     });
     const [reload, setReload] = useState(false)
     const [loaded, setLoaded] = useState(false);
+    const [required, setRequired] = useState([]);
 
 
     useEffect(() => {
-        fetchData({id: id}).then((data) => {
-            console.log("Loaded Data:");
-            console.log(data);
-            console.log(' ');
+        fetchData({_id: id}).then((data) => {
             let values = {
                 fields: [
                     {
@@ -38,31 +37,38 @@ function Document() {
                 ]
             };
 
+            if (required.length === 0) {
+                for (const [key, value] of Object.entries(data)) {
+                    if (key.charAt(0) !== '_') {
+                        required.push(key);
+                    }
+                }
+            }
+
             for (const [key, value] of Object.entries(data)) {
                 values.fields.push({
                     component: 'text-field',
                     name: key,
                     label: key,
-                    isRequired: false,
+                    isRequired: required.includes(key),
                     initialValue: value,
                     hidden: key.charAt(0) === '_',
                 })
             }
-
             values._id = data._id;
             setDoc(values);
             if (reload) setReload(false);
             if (!loaded) setLoaded(true);
         });
-    }, [id, reload]);
+    }, [id, loaded, reload]);
 
 
     return (
         <div style={documentStyle}>
             <Link to="/">Home</Link>
             <h1>Document {id}</h1>
-            <div style={{margin: "20px 0px", padding: "10px" }}>
-                <FormControls doc={doc} setReload={() => window.location.reload()}/>
+            <div style={{margin: "20px 0px", padding: "10px"}}>
+                <FormControls doc={doc} setDoc={setDoc} setReload={() => window.location.reload()}/>
                 <Button variant="contained" onClick={() => setShow(true)} style={{marginTop: "10px"}}>
                     Add Field
                 </Button>

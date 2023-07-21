@@ -51,6 +51,8 @@ router.put("/documents", async (req, res, next) => {
             console.log("Updating document " + req.body._id)
             await Document.findOneAndUpdate(filter, update, options);
         }
+        return res.status(200).send();
+
     } catch (error) {
         console.log("Errors in PUT: ");
         console.log(error);
