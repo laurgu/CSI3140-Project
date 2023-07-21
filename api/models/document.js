@@ -2,17 +2,21 @@ const mongoose = require('./init');
 
 // Schema for users of app
 const DocumentSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true
-    },
-    date: {
-        type: Date,
-        required: false
-    },
+        title: {
+            type: String,
+            required: true
+        },
+        author: {
+            type: String,
+            required: true
+        },
+        client: {
+            type: String,
+            required: true
+        }
 
-},
-    {strict:false}
+    },
+    {strict: false}
 );
 
 

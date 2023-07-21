@@ -12,7 +12,7 @@ const elementStyle = {
     alignItems: 'center',
 }
 
-function element (props) {
+function element(props) {
     return (
         <div style={elementStyle}>
             <p><b>{props.name}</b></p>

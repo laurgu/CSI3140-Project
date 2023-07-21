@@ -1,7 +1,7 @@
 import {Link, useParams} from "react-router-dom";
 import FormControls from "./form";
 import {useEffect, useState} from "react";
-import {fetchData, putData} from "../../api/documents";
+import {fetchData} from "../../api/documents";
 import Button from '@mui/material/Button';
 import NewField from "./newfield";
 
@@ -11,7 +11,7 @@ const documentStyle = {
 }
 
 function Document() {
-    const { id } = useParams();
+    const {id} = useParams();
 
     const [show, setShow] = useState(false);
     const [doc, setDoc] = useState({
@@ -23,18 +23,19 @@ function Document() {
 
     useEffect(() => {
         fetchData({id: id}).then((data) => {
+            console.log(data);
             let values = {
                 fields: [
                     {
                         component: 'text-field',
                         name: '_id',
                         hidden: true,
-                        initialValue: data.values().next().value._id
+                        initialValue: data._id
                     }
                 ]
             };
 
-            for (const [key, value] of Object.entries(data.values().next().value)) {
+            for (const [key, value] of Object.entries(data)) {
                 values.fields.push({
                     component: 'text-field',
                     name: key,

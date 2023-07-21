@@ -4,7 +4,6 @@ import Modal from "@mui/material/Modal";
 import {useEffect, useState} from "react";
 
 
-
 const modalStyle = {
     position: 'absolute',
     top: '50%',
@@ -47,7 +46,7 @@ function NewField({doc, setDoc, show, setShow}) {
                aria-labelledby="modal-modal-title"
                aria-describedby="modal-modal-description">
             <Box sx={modalStyle}>
-                <Typography id="modal-modal-title" variant="h6" component="h2" >
+                <Typography id="modal-modal-title" variant="h6" component="h2">
                     Text in a modal
                 </Typography>
 
