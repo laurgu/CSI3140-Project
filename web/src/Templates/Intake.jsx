@@ -43,10 +43,10 @@ function Intake() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const documentTitle = `Intake Form: ${clientName}`;
+    const title = `Intake Form: ${clientName}`;
     const documentType = "Intake";
     const formData = {
-      documentTitle,
+      title,
       documentType,
       date,
       associate,

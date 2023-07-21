@@ -52,10 +52,10 @@ function Order() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const documentTitle = `Order Form: ${orderNo}`;
+    const title = `Order Form: ${orderNo}`;
     const documentType = "Order";
     const formData = {
-      documentTitle,
+      title,
       documentType,
       orderNo,
       day,
@@ -73,6 +73,21 @@ function Order() {
       descProduct3,
       descProduct4,
       descProduct5,
+      qtyProduct1,
+      qtyProduct2,
+      qtyProduct3,
+      qtyProduct4,
+      qtyProduct5,
+      costProduct1,
+      costProduct2,
+      costProduct3,
+      costProduct4,
+      costProduct5,
+      unitProduct1,
+      unitProduct2,
+      unitProduct3,
+      unitProduct4,
+      unitProduct5,
       notes,
       paymentMethod,
       subtotal,
