@@ -27,29 +27,29 @@ router.get("/documents", authenticateUser, async (req, res, next) => {
         const _id = req.query._id || "";
         const client = req.query.client || "";
 
-        let documents;
-        if (_id !== "") {
-            console.log("HIT GET BY ID");
-            documents = await Document.findById(_id);
-        } else {
-            documents = await Document.find({
-                title: {$regex: "" + title, $options: "i"},
-                client: {$regex: "" + client, $options: "i"},
-            });
-        }
-
-        console.log(_id);
-        console.log("\n\nNew Request");
-        console.log(req.originalUrl);
-        console.log(req.query);
-        console.log(documents);
-
-        res.json(documents);
-    } catch (error) {
-        console.log("Errors in GET: ");
-        console.log(error);
-        next(error);
+    let documents;
+    if (_id !== "") {
+      console.log("HIT GET BY ID");
+      documents = await Document.findById(_id);
+    } else {
+      documents = await Document.find({
+        title: { $regex: "" + title, $options: "i" },
+        client: { $regex: "" + client, $options: "i" },
+      });
     }
+
+    console.log(_id);
+    console.log("\n\nNew Request");
+    console.log(req.originalUrl);
+    console.log(req.query);
+    console.log(documents);
+
+    res.json(documents);
+  } catch (error) {
+    console.log("Errors in GET: ");
+    console.log(error);
+    next(error);
+  }
 });
 
 router.put("/documents", authenticateUser, async (req, res, next) => {
@@ -78,18 +78,17 @@ router.put("/documents", authenticateUser, async (req, res, next) => {
             }
             req.body._id = newdoc._id;
         } else {
-            console.log("Updating document " + req.body._id)
+            console.log("Updating document " + req.body._id);
             await Document.findOneAndUpdate(filter, update, options);
         }
 
-        res.send({
-            _id: req.body._id,
-        });
-
-    } catch (error) {
-        console.log("Errors in PUT: ");
-        console.log(error);
-    }
+    res.send({
+      _id: req.body._id,
+    });
+  } catch (error) {
+    console.log("Errors in PUT: ");
+    console.log(error);
+  }
 });
 
 router.get("/recent", authenticateUser, async (req, res, next) => {
@@ -104,6 +103,5 @@ router.get("/recent", authenticateUser, async (req, res, next) => {
         next(error);
     }
 });
-
 
 module.exports = router;

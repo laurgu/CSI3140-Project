@@ -1,5 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+
+const config = require("./config");
 const cors = require("cors");
 const config = require("./config");
 const server = express();
@@ -16,12 +18,12 @@ const {serverURL} = require("./config"); // Adjust the path if needed
 server.use(authRoutes);
 server.use(documentsRoutes); // Mount the documents routes under /documents
 
-server.use((error, req, res, next) => {
-    res.json({
-        error: {
-            message: error.message,
-        },
-    });
+server.use((error, req, res) => {
+  res.json({
+    error: {
+      message: error.message,
+    },
+  });
 });
 
 server.listen(serverURL.port, serverURL.host, (error) => {
