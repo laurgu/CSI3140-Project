@@ -8,4 +8,6 @@ const serverURL = {
     }
 }
 
-module.exports = serverURL
+const JWTSecret = 'mylittlesecrettoken!'
+
+module.exports = {serverURL, JWTSecret}

@@ -19,6 +19,8 @@ function Login() {
       .then((response) => {
         const { token } = response.data;
         localStorage.setItem("token", token);
+        // Redirect to home page or do any other necessary actions
+          console.log(response.data)
       })
       .catch((error) => {
         // Handle login error
