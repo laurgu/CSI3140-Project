@@ -1,7 +1,7 @@
 import {Link, useParams} from "react-router-dom";
 import FormControls from "./form";
 import {useEffect, useState} from "react";
-import {fetchData} from "../../api/documents";
+import {fetchData} from "../../api/api";
 import Button from '@mui/material/Button';
 import NewField from "./newfield";
 

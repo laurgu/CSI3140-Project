@@ -1,7 +1,66 @@
+import {useNavigate} from "react-router-dom";
+
+
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:7000", // Update the baseURL to match your backend's address
+    baseURL: "http://localhost:7000", // Update the baseURL to match your backend's address
 });
 
-export default api;
+
+
+
+async function fetchData(query, route = "documents") {
+    let url = "http://localhost:7000/" + route + "/";
+
+    if (query.title) {
+        url += `?title=${query.title}`;
+    }
+    if (query._id) {
+        url += `?_id=${query._id}`;
+    }
+    if (query.client) {
+        url += `?client=${query.client}`;
+    }
+
+    try {
+        let res = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": localStorage.getItem("token"),
+            }
+        }).then((response) => response.json());
+        if (res.length === 0) {
+            return [];
+        } else if (res.message) {
+            console.log(res.message);
+            window.location.href = "/";
+            return [];
+        } else {
+            return res;
+        }
+    } catch (e) {
+        return [];
+    }
+}
+
+async function putData(data) {
+    const url = "http://localhost:7000/documents";
+    try {
+        console.log("Data being PUT:", data);
+        return await fetch(url, {
+            method: "PUT",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": localStorage.getItem("token"),
+            },
+        }).then((response) => response.json())
+    } catch (e) {
+        console.log(e);
+        return [];
+    }
+}
+
+export {api, fetchData, putData};

@@ -6,7 +6,7 @@ import FormSpy from "@data-driven-forms/react-form-renderer/form-spy";
 import TextField from "@data-driven-forms/mui-component-mapper/text-field";
 import Button from "@mui/material/Button";
 import {DatePicker} from "@data-driven-forms/mui-component-mapper";
-import {putData} from "../../api/documents";
+import {putData} from "../../api/api";
 import {Grid} from "@mui/material";
 import {Field} from "./field";
 

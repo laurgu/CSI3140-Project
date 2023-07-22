@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "../Styles/General.css";
-import {fetchData, putData} from "../api/documents";
+import {fetchData, putData} from "../api/api";
 
 function Order() {
     const {id} = useParams();

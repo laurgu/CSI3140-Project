@@ -1,7 +1,8 @@
 import List from "../List";
 import SearchBar from "./searchbar";
 import {useEffect, useState} from "react";
-import {fetchData} from "../../api/documents";
+import {fetchData} from "../../api/api";
+import {useNavigate} from "react-router-dom";
 
 const searchStyle = {
     margin: '4vh auto'

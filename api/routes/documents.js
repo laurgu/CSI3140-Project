@@ -6,26 +6,26 @@ const jwt = require("jsonwebtoken");
 const config = require("../config");
 
 const authenticateUser = (req, res, next) => {
-  const token = req.header("Authorization");
+    const token = req.header("Authorization");
 
-  if (!token) {
-    return res.status(401).json({ message: "Missing authorization token" });
-  }
+    if (!token) {
+        return res.status(401).json({message: "Missing authorization token"});
+    }
 
-  try {
-    const decodedToken = jwt.verify(token, config.jwtSecret);
-    req.user = decodedToken;
-    next();
-  } catch (error) {
-    return res.status(401).json({ message: "Invalid authorization token" });
-  }
+    try {
+        req.user = jwt.verify(token, config.JWTSecret);
+        console.log(req.user)
+        next();
+    } catch (error) {
+        return res.status(401).json({message: "Invalid authorization token"});
+    }
 };
 
 router.get("/documents", authenticateUser, async (req, res, next) => {
-  try {
-    const title = req.query.title || "";
-    const _id = req.query._id || "";
-    const client = req.query.client || "";
+    try {
+        const title = req.query.title || "";
+        const _id = req.query._id || "";
+        const client = req.query.client || "";
 
         let documents;
         if (_id !== "") {
@@ -44,12 +44,12 @@ router.get("/documents", authenticateUser, async (req, res, next) => {
         console.log(req.query);
         console.log(documents);
 
-    res.json(documents);
-  } catch (error) {
-    console.log("Errors in GET: ");
-    console.log(error);
-    next(error);
-  }
+        res.json(documents);
+    } catch (error) {
+        console.log("Errors in GET: ");
+        console.log(error);
+        next(error);
+    }
 });
 
 router.put("/documents", authenticateUser, async (req, res, next) => {
@@ -72,8 +72,8 @@ router.put("/documents", authenticateUser, async (req, res, next) => {
             console.log("New document: ");
             console.log(newdoc);
             if (req.body.title === temp) {
-                const update = { title: newdoc._id };
-                const filter = { _id: newdoc._id };
+                const update = {title: newdoc._id};
+                const filter = {_id: newdoc._id};
                 await Document.findByIdAndUpdate(filter, update);
             }
             req.body._id = newdoc._id;
@@ -93,16 +93,16 @@ router.put("/documents", authenticateUser, async (req, res, next) => {
 });
 
 router.get("/recent", authenticateUser, async (req, res, next) => {
-  try {
-    let documents = await Document.find({}).sort({ _id: -1 }).limit(5);
-    res.json(documents);
-    console.log("\n\nNew Request for Recent Documents");
-    console.log(documents);
-  } catch (error) {
-    console.log("Errors in GET: ");
-    console.log(error);
-    next(error);
-  }
+    try {
+        let documents = await Document.find({}).sort({_id: -1}).limit(5);
+        res.json(documents);
+        console.log("\n\nNew Request for Recent Documents");
+        console.log(documents);
+    } catch (error) {
+        console.log("Errors in GET: ");
+        console.log(error);
+        next(error);
+    }
 });
 
 

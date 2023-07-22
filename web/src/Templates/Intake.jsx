@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "../Styles/General.css";
 import {useNavigate} from "react-router-dom";
-import {putData} from "../api/documents";
+import {putData} from "../api/api";
 
 function Intake() {
     const navigate = useNavigate();

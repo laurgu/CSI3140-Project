@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import {fetchData, putData} from "../api/documents";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {fetchData, putData} from "../api/api";
 import Search from "../Components/Search";
 
 function Home() {
-  const navigate = useNavigate();
-  const [documentList, setDocumentList] = useState([]);
+    const navigate = useNavigate();
+    const [documentList, setDocumentList] = useState([]);
 
     useEffect(() => {
         const fetchDocuments = async () => {
@@ -30,11 +30,11 @@ function Home() {
             navigate("/order");
         } else if (formType === "custom") {
             const id = (await putData({
-                    title: "New",
-                    client: "Untitled",
-                    type: "custom",
-                    author: "Untitled",
-                }))['_id']
+                title: "New",
+                client: "Untitled",
+                type: "custom",
+                author: "Untitled",
+            }))['_id']
             navigate(`/document/${id}`);
         }
     };
