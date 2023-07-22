@@ -9,7 +9,7 @@ function Login() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = () => {
+    function handleLogin() {
         const trimmedPassword = password.trim();
         console.log("Entered password:", trimmedPassword);
         console.log("Password length:", trimmedPassword.length);
