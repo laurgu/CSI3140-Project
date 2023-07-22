@@ -1,20 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
-const config = require("./config");
 const cors = require("cors");
-const config = require("./config");
 const server = express();
+const authRoutes = require("./routes/authRoutes");
+const documentsRoutes = require("./routes/documents");
+const {serverURL} = require("./config"); // Adjust the path if needed
 require("../api/models/init");
 
 server.use(bodyParser.json());
 server.use(cors({credentials: false, origin: true}));
-
-// Import and use the authRoutes.js for handling user registration and login
-const authRoutes = require("./routes/authRoutes");
-const documentsRoutes = require("./routes/documents");
-const {serverURL} = require("./config"); // Adjust the path if needed
-
 server.use(authRoutes);
 server.use(documentsRoutes); // Mount the documents routes under /documents
 
