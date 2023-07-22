@@ -1,9 +1,14 @@
+import {Box, TextField} from "@mui/material";
+
 const inputStyle = {
-    marginRight: '2vw',
+    maxWidth: "30%",
 }
 
-const labelStyle = {
-    marginRight: '5px',
+const boxStyle = {
+    margin: '2vh auto',
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
 }
 
 function SearchBar({onQuery}) {
@@ -19,20 +24,11 @@ function SearchBar({onQuery}) {
 
     return (
         <div>
-            <div style={{
-                margin: '2vh auto',
-                display: 'flex',
-                label: {
-                    marginRight: '15px'
-                }
-            }}>
-                <label style={labelStyle}>Title</label>
-                <input style={inputStyle} type="text" onInput={handleInput} name={'title'}/>
-                <label style={labelStyle}>ID</label>
-                <input style={inputStyle} type="text" onInput={handleInput} name={'id'}/>
-                <label style={labelStyle}>Client</label>
-                <input style={inputStyle} type="text" onInput={handleInput} name={'client'}/>
-            </div>
+            <Box component="Form" style={boxStyle}>
+                <TextField style={inputStyle} id="title" label="Search Title" type="text" name="title" onInput={handleInput}/>
+                <TextField style={inputStyle} id="id" label="Search ID" type="text" name="id" onInput={handleInput}/>
+                <TextField style={inputStyle} id="client" label="Search Field" type="text" name="client" onInput={handleInput}/>
+            </Box>
         </div>
     )
 }

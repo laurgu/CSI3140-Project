@@ -6,9 +6,10 @@ import FormSpy from "@data-driven-forms/react-form-renderer/form-spy";
 import TextField from "@data-driven-forms/mui-component-mapper/text-field";
 import Button from "@mui/material/Button";
 import {DatePicker} from "@data-driven-forms/mui-component-mapper";
-import {putData} from "../../api/api";
+import {deleteId, putData} from "../../api/api";
 import {Grid} from "@mui/material";
 import {Field} from "./field";
+import {Link} from "react-router-dom";
 
 const componentMapper = {
     [componentTypes.TEXT_FIELD]: TextField,
@@ -39,15 +40,15 @@ const FormTemplate = ({setDoc, schema}) => {
         {schema.title}
         <Grid container spacing={2}>
             <Grid container item xs={6} direction="column">
-                {left.map((field, index) => {
-                    if (field.hidden) return null;
-                    return <Field field={field} index={index * 2} remove={remove}/>;
-                })}
-            </Grid>
-            <Grid container item xs={6} direction="column">
                 {right.map((field, index) => {
                     if (field.hidden) return null;
                     return <Field field={field} index={index * 2 + 1} remove={remove}/>;
+                })}
+            </Grid>
+            <Grid container item xs={6} direction="column">
+                {left.map((field, index) => {
+                    if (field.hidden) return null;
+                    return <Field field={field} index={index * 2} remove={remove}/>;
                 })}
             </Grid>
         </Grid>
@@ -68,6 +69,7 @@ const FormTemplate = ({setDoc, schema}) => {
                 <Button variant="contained" onClick={onCancel} style={{marginRight: 8}}>
                     Cancel
                 </Button>
+
             </div>}
         </FormSpy>
     </form>;
@@ -84,6 +86,7 @@ const asyncSubmit = async (doc) => {
     console.log(clean);
     await putData(clean);
     console.log("Submitted");
+    window.location.assign("/");
 };
 
 function FormControls({doc, setReload, setDoc}) {

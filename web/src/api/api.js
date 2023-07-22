@@ -1,13 +1,8 @@
-import {useNavigate} from "react-router-dom";
-
-
 import axios from "axios";
 
 const api = axios.create({
     baseURL: "http://localhost:7000", // Update the baseURL to match your backend's address
 });
-
-
 
 
 async function fetchData(query, route = "documents") {
@@ -34,7 +29,6 @@ async function fetchData(query, route = "documents") {
         if (res.length === 0) {
             return [];
         } else if (res.message) {
-            console.log(res.message);
             window.location.href = "/";
             return [];
         } else {
@@ -63,4 +57,20 @@ async function putData(data) {
     }
 }
 
-export {api, fetchData, putData};
+async function deleteId(id) {
+    const url = "http://localhost:7000/documents/" + id;
+    try {
+        console.log("Data being deleted: ", id);
+        return await fetch(url, {
+            method: "DELETE",
+            headers: {
+                "Authorization": localStorage.getItem("token"),
+            },
+        })
+    } catch (e) {
+        console.log(e);
+        return [];
+    }
+}
+
+export {api, fetchData, putData, deleteId};

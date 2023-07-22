@@ -1,6 +1,7 @@
 import React, {useState} from "react";
-
 import {api} from "../api/api";
+import {Button, TextField, Box} from "@mui/material";
+
 
 function SignUp() {
     const [email, setEmail] = useState("");
@@ -23,27 +24,21 @@ function SignUp() {
     return (
         <div>
             <h2>Sign Up</h2>
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    handleSignUp();
-                }}
-            >
-                {/* Form fields for email and password */}
-                <input
+            <Box component="Form">
+                <TextField
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
                 />
-                <input
+                <TextField
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <button type="submit">Sign Up</button>
-            </form>
+                <Button variant="contained" onClick={handleSignUp}>Sign Up</Button>
+            </Box>
         </div>
     );
 }

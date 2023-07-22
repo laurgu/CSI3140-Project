@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import {api} from "../api/api";
 import {useNavigate} from "react-router-dom";
+import {Button, TextField, Box} from "@mui/material";
+
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -19,13 +21,16 @@ function Login() {
         api
             .post("/api/login", {email, password: trimmedPassword})
             .then((response) => {
+                if (response.data.message) {
+                    console.log(response.data.message);
+                    return;
+                }
                 const {token} = response.data;
                 console.log("JWT Token: ", token);
                 localStorage.setItem("token", token);
-                navigate("/home")
+                navigate("/")
             })
             .catch((error) => {
-                // Handle login error
                 console.log(error.response.data.message);
             });
     };
@@ -33,27 +38,21 @@ function Login() {
     return (
         <div>
             <h2>Login</h2>
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    handleLogin();
-                }}
-            >
-                {/* Form fields for email and password */}
-                <input
+            <Box component="Form">
+                <TextField
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
                 />
-                <input
+                <TextField
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <button type="submit">Login</button>
-            </form>
+                <Button variant="contained" onClick={handleLogin}>Login</Button>
+            </Box>
         </div>
     );
 }
