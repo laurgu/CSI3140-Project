@@ -1,17 +1,17 @@
 .form {
-    margin: 2vw 2vw 2vw 2vw;
+  margin: 2vw 20vw 2vw 20vw;
 }
 
 .row {
-    display: flex;
+  display: flex;
 }
 
 .column {
-    flex: 50%;
+  flex: 50%;
 }
 
 @media screen and (max-width: 600px) {
-    .column {
-        width: 100%;
-    }
+  .column {
+    width: 100%;
+  }
 }
