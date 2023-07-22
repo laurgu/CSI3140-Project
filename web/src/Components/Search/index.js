@@ -1,5 +1,5 @@
 import List from "../List";
-import SearchBar from "./search";
+import SearchBar from "./searchbar";
 import {useEffect, useState} from "react";
 import {fetchData} from "../../api/documents";
 
@@ -12,7 +12,19 @@ function Search() {
     const [list, setList] = useState([]);
 
     useEffect(() => {
-        fetchData(query).then(result => setList(result))
+        fetchData({
+            title: query.title,
+        }).then(result => result.filter((document) => {
+            if (query.client)
+                return document.client.includes(query.client);
+            else
+                return true
+        }).filter((document) => {
+            if (query._id)
+                return document._id.includes(query._id);
+            else
+                return true
+        })).then(setList)
     }, [query])
 
 

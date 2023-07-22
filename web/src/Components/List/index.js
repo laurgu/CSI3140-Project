@@ -15,7 +15,7 @@ function List({ list }) {
       {list.map((item) => (
         <Element
           name={item.title}
-          id={item._id}
+          _id={item._id}
           description={item.description}
           client={item.client}
           date={item.date}
@@ -25,4 +25,4 @@ function List({ list }) {
   );
 }
 
-export default List;
+export default List

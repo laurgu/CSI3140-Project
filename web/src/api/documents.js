@@ -3,8 +3,8 @@ async function fetchData(query, route = "documents") {
     if (query.title) {
         url += `?title=${query.title}`;
     }
-    if (query.id) {
-        url += `?_id=${query.id}`;
+    if (query._id) {
+        url += `?_id=${query._id}`;
     }
     if (query.client) {
         url += `?client=${query.client}`;
@@ -27,7 +27,7 @@ async function putData(data) {
             headers: {
                 "Content-Type": "application/json",
             },
-        }).then((response) => response.json());
+        }).then((response) => response.json())
     } catch (e) {
         console.log(e);
         return [];

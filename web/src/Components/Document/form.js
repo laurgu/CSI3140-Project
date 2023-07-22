@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import FormRenderer from "@data-driven-forms/react-form-renderer/form-renderer";
 import componentTypes from "@data-driven-forms/react-form-renderer/component-types";
 import useFormApi from "@data-driven-forms/react-form-renderer/use-form-api";
@@ -8,14 +8,16 @@ import Button from "@mui/material/Button";
 import {DatePicker} from "@data-driven-forms/mui-component-mapper";
 import {putData} from "../../api/documents";
 import {Grid} from "@mui/material";
-import NewField from "./newfield";
+import {Field} from "./field";
 
 const componentMapper = {
     [componentTypes.TEXT_FIELD]: TextField,
     [componentTypes.DATE_PICKER]: DatePicker,
 };
 
-const FormTemplate = ({setShow, schema}) => {
+let setDocForm;
+
+const FormTemplate = ({setDoc, schema}) => {
     const {handleSubmit, onReset, onCancel, getState} = useFormApi();
     const {submitting, valid, pristine} = getState();
 
@@ -27,76 +29,54 @@ const FormTemplate = ({setShow, schema}) => {
         schema.fields[i + 1] && right.push(schema.fields[i + 1]);
     }
 
-    return (
-        <form onSubmit={handleSubmit}>
-            {schema.title}
-            <Grid container spacing={2}>
-                <Grid container item xs={6} direction="column">
-                    {left.map((field, index) => {
-                        if (field.hidden) return null;
-                        return (
-                            <div key={index} style={{margin: "10px",}}>
-                                {field.label}
-                                <TextField
-                                    key={index}
-                                    name={field.name}
-                                    label={field.label}
-                                    type={field.type}
-                                    isRequired={field.isRequired}
-                                    helperText={field.helperText}
-                                    initialValue={field.initialValue}
-                                    // value={field.value || field.initialValue}
-                                />
-                            </div>
-                        );
-                    })}
-                </Grid>
-                <Grid container item xs={6} direction="column">
-                    {right.map((field, index) => {
-                        if (field.hidden) return null;
-                        return (
-                            <div key={index} style={{margin: "10px",}}>
-                                {field.label}
-                                <TextField
-                                    key={index}
-                                    name={field.name}
-                                    label={field.label}
-                                    type={field.type}
-                                    isRequired={field.isRequired}
-                                    helperText={field.helperText}
-                                    initialValue={field.initialValue}
-                                />
-                            </div>
-                        );
-                    })}
-                </Grid>
+    const remove = (field) => {
+        let newDoc = {...schema};
+        newDoc.fields = schema.fields.filter((f) => f.name !== field.name);
+        setDocForm({...newDoc})
+    }
+
+    return <form onSubmit={handleSubmit}>
+        {schema.title}
+        <Grid container spacing={2}>
+            <Grid container item xs={6} direction="column">
+                {left.map((field, index) => {
+                    if (field.hidden) return null;
+                    return <Field field={field} index={index * 2} remove={remove}/>;
+                })}
             </Grid>
-            <FormSpy>
-                {() => (
-                    <div style={{marginTop: 8}}>
-                        <Button
-                            disabled={submitting || !valid || pristine}
-                            style={{marginRight: 8}}
-                            type="submit"
-                            color="primary"
-                            variant="contained"
-                        >
-                            Submit
-                        </Button>
-                        <Button variant="contained" onClick={onCancel} style={{marginRight: 8}}>
-                            Cancel
-                        </Button>
-                    </div>
-                )}
-            </FormSpy>
-        </form>
-    );
+            <Grid container item xs={6} direction="column">
+                {right.map((field, index) => {
+                    if (field.hidden) return null;
+                    return <Field field={field} index={index * 2 + 1} remove={remove}/>;
+                })}
+            </Grid>
+        </Grid>
+        <FormSpy>
+            {() => <div style={{marginTop: 8}}>
+                <Button
+                    disabled={submitting || !valid || pristine}
+                    style={{marginRight: 8}}
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                >
+                    Submit
+                </Button>
+                <Button variant="contained" onClick={onReset} style={{marginRight: 8}}>
+                    Reset
+                </Button>
+                <Button variant="contained" onClick={onCancel} style={{marginRight: 8}}>
+                    Cancel
+                </Button>
+            </div>}
+        </FormSpy>
+    </form>;
 };
 
 const asyncSubmit = async (doc) => {
     console.log("Submitting");
     let clean = {
-        _id: doc.id
+        _id: doc._id
     };
     doc.fields.filter((field) => !field.hidden).forEach((field) => {
         clean[field.name] = document.getElementsByName(field.name)[0].value;
@@ -106,15 +86,16 @@ const asyncSubmit = async (doc) => {
     console.log("Submitted");
 };
 
-function FormControls({doc, setReload}) {
+function FormControls({doc, setReload, setDoc}) {
+    setDocForm = setDoc;
     return (
         <FormRenderer
             FormTemplate={FormTemplate}
             componentMapper={componentMapper}
             schema={doc}
             onSubmit={() => asyncSubmit(doc)}
-            onCancel={() => setReload(true)}
-            onReset={() => console.log("Resetting")}
+            onCancel={() => window.location.assign("/")}
+            onReset={() => window.location.reload()}
         />
     );
 }

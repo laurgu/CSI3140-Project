@@ -6,15 +6,14 @@ import {fetchData, putData} from "../api/documents";
 
 function Order() {
     const {id} = useParams();
-    const location = useLocation();
     const navigate = useNavigate();
+    const today = new Date();
 
-    const [orderNo, setOrderNo] = useState("");
-    const [day, setDay] = useState("");
+    const [day, setDay] = useState(today.getDate());
     const [client, setClient] = useState("");
     const [author, setAuthor] = useState("");
-    const [month, setMonth] = useState("01");
-    const [year, setYear] = useState("");
+    const [month, setMonth] = useState(today.getMonth() + 1);
+    const [year, setYear] = useState(today.getFullYear());
     const [homePhone, setHomePhone] = useState("");
     const [workPhone, setWorkPhone] = useState("");
     const [streetAddress, setStreetAddress] = useState("");
@@ -57,7 +56,6 @@ function Order() {
                     const documentData = await fetchData({id});
                     if (documentData) {
                         const {
-                            orderNo,
                             client,
                             author,
                             day,
@@ -100,7 +98,6 @@ function Order() {
                         } = documentData;
 
                         // Update all state hooks with the fetched data
-                        setOrderNo(orderNo);
                         setClient(client);
                         setAuthor(author);
                         setDay(day);
@@ -156,14 +153,11 @@ function Order() {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        const title = `Order Form: ${orderNo}`;
         const documentType = "Order";
         const formData = {
-            title,
             client,
             author,
             documentType,
-            orderNo,
             day,
             month,
             year,
@@ -203,7 +197,12 @@ function Order() {
         };
 
         try {
-            const response = await putData(formData);
+            console.log(formData)
+            const data = Object.fromEntries(Object.entries(formData).filter(
+                ([key, value]) => value !== ""
+            ));
+            console.log("data", data)
+            const response = await putData(data)
 
             console.log("Form data saved successfully:", response);
             navigate("/");
@@ -261,26 +260,12 @@ function Order() {
                     </div>
                 </div>
                 <br></br>
-                <hr></hr>
-                <br></br>
                 <div className="row">
-                    <div className="col-3">
-                        <h4>Order Number:</h4>
-                    </div>
                     <div className="col-9">
                         <h4>Date:</h4>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-3">
-                        <input
-                            id="order-no"
-                            type="number"
-                            value={orderNo}
-                            onChange={(e) => setOrderNo(e.target.value)}
-                            style={{width: "100%"}}
-                        ></input>
-                    </div>
                     <div className="col-1">
                         <p>Day:</p>
                     </div>
