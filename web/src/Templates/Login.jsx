@@ -22,7 +22,7 @@ function Login() {
         const { token } = response.data;
         console.log("JWT Token: ", token);
         localStorage.setItem("token", token);
-        navigate("/home");
+        navigate("/");
       })
       .catch((error) => {
         window.alert(error.response.data.message);

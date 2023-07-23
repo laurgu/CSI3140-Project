@@ -8,8 +8,7 @@ import LoginPage from "./Templates/LoginPage";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<LoginPage />} />
-      <Route path="/home" element={<Home />} />
+      <Route path="/" element={<Home />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/intake" element={<Intake />} />
       <Route path="/order" element={<Order />} />
