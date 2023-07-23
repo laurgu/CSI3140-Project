@@ -29,7 +29,7 @@ async function fetchData(query, route = "documents") {
         if (res.length === 0) {
             return [];
         } else if (res.message) {
-            window.location.href = "/";
+            window.location.href = "/login";
             return [];
         } else {
             return res;

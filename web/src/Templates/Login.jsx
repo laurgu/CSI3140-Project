@@ -52,7 +52,7 @@ function Login() {
         <Button
           variant="contained"
           style={{ marginLeft: "2vw" }}
-          onClick={handleLogin}
+          onClick={() => handleLogin()}
         >
           Login
         </Button>
