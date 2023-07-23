@@ -1,0 +1,16 @@
+[build]
+command = "npm run build"
+functions = "lambda"  # Change this to "lambda" if your functions are kept in the "lambda" folder
+
+[[redirects]]
+from = "/.netlify/functions/*"
+to = "/.netlify/functions/:splat"
+status = 200
+
+[[build.functions]]
+name = "auth"  # Replace with your actual function name
+dist = "lambda/auth"  # Replace with the correct path to your auth Lambda function folder
+
+[[build.functions]]
+name = "documents"  # Replace with your actual function name
+dist = "lambda/documents"  # Replace with the correct path to your documents Lambda function folder
